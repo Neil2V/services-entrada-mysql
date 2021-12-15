@@ -30,15 +30,13 @@ public class BoletoController {
 
     @PostMapping("/create")
     public ResponseEntity<?> save(@RequestBody Boleto boleto){
-        //Boleto boletoo = new Boleto();
-        Sala sala = new Sala(boleto.getSala().getNumeroSala(),boleto.getSala().getNumeroAsiento());
+
+        Sala sala = new Sala(boleto.getSala().getNumerosala(),boleto.getSala().getNumeroasiento());
         User user = new User(boleto.getUser().getDni());
-        //boletoo.setSala(sala);
-        //boletoo.setUser(user);
         Boleto boletoo = new Boleto(user,sala);
 
         salaService.save(sala);
-        userService.save(user);//hola
+        userService.save(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(boletoService.saveEntrada(boletoo));
     }
 

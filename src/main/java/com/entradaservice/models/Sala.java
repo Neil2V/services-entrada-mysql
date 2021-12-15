@@ -23,19 +23,19 @@ public class Sala {
         this.numeroasiento = numeroasiento;
     }
 
-    public int getNumeroSala() {
+    public int getNumerosala() {
         return numerosala;
     }
 
-    public void setNumeroSala(int numerosala) {
+    public void setNumerosala(int numerosala) {
         this.numerosala = numerosala;
     }
 
-    public int getNumeroAsiento() {
+    public int getNumeroasiento() {
         return numeroasiento;
     }
 
-    public void setNumeroAsiento(int numeroasiento) {
+    public void setNumeroasiento(int numeroasiento) {
         this.numeroasiento = numeroasiento;
     }
 }
