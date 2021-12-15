@@ -8,15 +8,24 @@ public class Boleto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
 
+    @OneToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
+    @OneToOne
+    @JoinColumn(name = "sala_id")
     private Sala sala;
 
-    @OneToOne
-    @JoinColumn(name = "User_id", nullable = false)
+    public Boleto() {
+    }
+
+    public Boleto(User user, Sala sala) {
+        this.user = user;
+        this.sala = sala;
+    }
+
     public User getUser() {
         return user;
     }
@@ -25,8 +34,6 @@ public class Boleto {
         this.user = user;
     }
 
-    @OneToOne
-    @JoinColumn(name = "Sala_id", nullable = false)
     public Sala getSala() {
         return sala;
     }

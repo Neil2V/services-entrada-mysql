@@ -1,34 +1,41 @@
 package com.entradaservice.models;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
 public class Sala {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private int numero;
-    private Asiento[] asientos;
 
-    public int getNumero() {
-        return numero;
+    private int numerosala;
+
+    @Column(unique = true)
+    private int numeroasiento;
+
+    public Sala() {
     }
 
-    public void setNumero(int numero) {
-        this.numero = numero;
+    public Sala(int numerosala, int numeroasiento) {
+        this.numerosala = numerosala;
+        this.numeroasiento = numeroasiento;
     }
 
-    @OneToOne
-    @JoinColumn(name = "Asiento_id", nullable = false)
-    public Asiento[] getAsientos() {
-        return asientos;
+    public int getNumeroSala() {
+        return numerosala;
     }
 
-    public void setAsientos(Asiento[] asientos) {
-        this.asientos = asientos;
+    public void setNumeroSala(int numerosala) {
+        this.numerosala = numerosala;
+    }
+
+    public int getNumeroAsiento() {
+        return numeroasiento;
+    }
+
+    public void setNumeroAsiento(int numeroasiento) {
+        this.numeroasiento = numeroasiento;
     }
 }
