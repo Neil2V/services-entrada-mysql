@@ -1,13 +1,10 @@
 package com.entradaservice.controller;
 
-import com.entradaservice.models.Boleto;
+import com.entradaservice.models.Asiento;
 import com.entradaservice.models.Sala;
-import com.entradaservice.models.User;
-import com.entradaservice.service.BoletoService;
+import com.entradaservice.service.AsientoService;
 import com.entradaservice.service.SalaService;
-import com.entradaservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,61 +16,31 @@ import java.util.Optional;
 @CrossOrigin("*")
 public class BoletoController {
 
-    @Autowired
-    private BoletoService boletoService;
+
 
     @Autowired
     private SalaService salaService;
 
-    @Autowired
-    private UserService userService;
-
+      @Autowired
+      private AsientoService asientoService;
+/*
     @PostMapping("/create")
     public ResponseEntity<?> save(@RequestBody Boleto boleto){
 
-        Sala sala = new Sala(boleto.getSala().getNumerosala(),boleto.getSala().getNumeroasiento());
-        User user = new User(boleto.getUser().getDni());
-        Boleto boletoo = new Boleto(user,sala);
-
-        salaService.save(sala);
-        userService.save(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(boletoService.saveEntrada(boletoo));
+       // return ResponseEntity.status(HttpStatus.CREATED).body(boletoService.saveEntrada(boletoo));
+    }*/
+    @GetMapping("/asientos")
+    public ResponseEntity<List<Asiento>> AllAsientos(){
+        List<Asiento> asientos = asientoService.getAsientos();
+        return ResponseEntity.ok(asientos);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> findById(@PathVariable("id") Long id){
-        Optional<Boleto> boleto = boletoService.findBoletoById(id);
-
-        if(!boleto.isPresent())
-            return ResponseEntity.notFound().build();
-        return ResponseEntity.ok(boleto);
+    @GetMapping("/salas")
+    public ResponseEntity<List<Sala>> AllSalas(){
+        List<Sala> salas = salaService.getSalas();
+        return ResponseEntity.ok(salas);
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<?> update(@PathVariable("id") Long id, @RequestBody Boleto boleto){
-        Optional<Boleto> oboleto = boletoService.findBoletoById(id);
 
-        if(!oboleto.isPresent())
-            return ResponseEntity.notFound().build();
 
-        oboleto.get().setUser(boleto.getUser());
-        oboleto.get().setSala(boleto.getSala());
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(boletoService.saveEntrada(oboleto.get()));
-
-    }
-
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> delete(@PathVariable("id") Long id){
-        if(!boletoService.findBoletoById(id).isPresent())
-            return ResponseEntity.notFound().build();
-        boletoService.deleteBoleto(id);
-        return ResponseEntity.ok().build();
-    }
-
-    @GetMapping("/")
-    public ResponseEntity<List<Boleto>> All(){
-        List<Boleto> boletos = boletoService.getBoletos();
-        return ResponseEntity.ok(boletos);
-    }
 }

@@ -1,26 +1,40 @@
 package com.entradaservice.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Sala {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
 
     private int numerosala;
 
-    @Column(unique = true)
-    private int numeroasiento;
+    @OneToMany(mappedBy = "sala",fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("sala")
+    private Set<Asiento> asientos = new HashSet<>();
 
     public Sala() {
     }
 
-    public Sala(int numerosala, int numeroasiento) {
+    public Sala(int numerosala) {
+
         this.numerosala = numerosala;
-        this.numeroasiento = numeroasiento;
+
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getNumerosala() {
@@ -31,11 +45,12 @@ public class Sala {
         this.numerosala = numerosala;
     }
 
-    public int getNumeroasiento() {
-        return numeroasiento;
+    public Set<Asiento> getAsientos() {
+        return asientos;
     }
 
-    public void setNumeroasiento(int numeroasiento) {
-        this.numeroasiento = numeroasiento;
+    public void setAsientos(Set<Asiento> asientos) {
+        this.asientos = asientos;
     }
+
 }
